@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+<script>
+function myFunction() {
+  alert("Are you sure about deleting this expense");
+}
+</script>
+    <script src="Scripts/jquery-1.7.1.js" type="text/javascript"></script>
+    <script src="Scripts/jquery-1.7.1-vsdoc.js" type="text/javascript"></script>
+    <title>Expenses</title>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="../js/new1.js"></script>
+    <style>
+
+.bttn {
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: #f1f1f1;
+  color: black;
+  font-size: 16px;
+  padding: 16px 30px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+}
+.bttn:hover {
+  background-color: red;
+  color: white;
+}
+.button5 {background-color: #555555;}
+</style>
+    <link rel="stylesheet" href="/assets/style.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+
+    <!--[if lt IE 9]>
+    <script>
+        document.createElement("article");
+        document.createElement("aside");
+        document.createElement("header");
+        document.createElement("footer");
+        document.createElement("main");
+        document.createElement("nav");
+        document.createElement("section");
+    </script>
+    <![endif]-->
+    <script src="https://public.tableau.com/javascripts/api/tableau-2.min.js"></script>
+        <script type="text/javascript">
+            function initPie() {
+                var pieGraphdiv = document.getElementById("pieGraph"),
+                url = "https://public.tableau.com/views/IncomevsAmount/Sheet1?:embed=y&:display_count=yes&publish=yes"
+                var viz = new tableau.Viz(pieGraphdiv, url);
+              }
+        </script>
+
+
+</head>
+<body onload="initPie();" >
+<% include partials/header2.ejs %>
+<br/><br/>
+<main>
+    <form  action="/crud" method="post">
+
+
+    <h3 style="text-align:left" class="writing"></h3>
+    <% if(sum > income){ %>
+      <h2>The budget is exceeding your monthly income</h2>
+      <% } %>
+
+<% if( sum != 0){ %>
+    <table id="category" class="table table-bordered table-hover table-condensed  ">
+                <tr>
+
+                    <th>Expense Type</th>
+                    <th>Expense Amount</th>
+                    <th>Action</th>
+                </tr>
+
+                <% for(var i=0;i< budget.length;i++) { %>
+                   <tr class="bg-dark">
+                       <td><%= budget[i].TYPENAME %></td>
+                       <td><%= budget[i].AMOUNT %></td>
+
+
+                       <td>
+                         <button type="submit" name="update" value='<%= budget[i].TYPENAME %>' class="btn btn-success"> Update</button>
+                               <button type="submit" name="delete" onclick="myFunction()" value='<%= budget[i].TYPENAME %>' class="btn btn-danger"> Delete</button>
+                       </td>
+
+
+                   </tr>
+                <% } %>
+				<tr>
+				  <td>Total</td>
+				  <td><%= sum%></td>
+
+
+				</tr>
+
+
+
+
+
+      </table>
+
+
+
+      <button type="submit" name="add" value='add' > ADD Expense </button>
+   </form>
+   <% } else { %>
+     <h2>No Expenses available</h2>
+     <form action="/crud" method="post">
+       <button type="submit" name="add" value='add'> ADD Expense </button>
+     </form>
+     <% } %>
+
+
+
+
+<p id="pieGraph"></p>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<% include partials/footer.ejs %>
+</body>
+
+</html>

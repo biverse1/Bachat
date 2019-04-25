@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <script src="Scripts/jquery-1.7.1.js" type="text/javascript"></script>
+    <script src="Scripts/jquery-1.7.1-vsdoc.js" type="text/javascript"></script>
+    <title>Add Expense</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="../js/new1.js"></script>
+    <link rel="stylesheet" href="/assets/style.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+
+    .btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #f1f1f1;
+    color: black;
+    font-size: 16px;
+    padding: 16px 30px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    }
+    .btn:hover {
+    background-color: red;
+    color: white;
+    }
+    .button5 {background-color: #555555;}
+    </style>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+
+    <!--[if lt IE 9]>
+    <script>
+        document.createElement("article");
+        document.createElement("aside");
+        document.createElement("header");
+        document.createElement("footer");
+        document.createElement("main");
+        document.createElement("nav");
+        document.createElement("section");
+    </script>
+    <![endif]-->
+
+</head>
+<body>
+<% include partials/header2.ejs %>
+<br/>
+<form name="buscador" method="post" action="/addition">
+      <div >
+          <select name="type" required class="wrapper">
+              <option>Select The Expenses</option>
+              <% for(var i=0;i<result.length;i++) { %>
+                  <option  > <%= result[i] %></option>
+              <% } %>
+          </select>
+          <br>
+          <br>
+          <br>
+          <input name="val" type="number" class="un " placeholder="Mention the buget for the selected category" required>
+
+      <div >
+         <br>
+          <input  type="submit" class="btn" value="Add" name="submit" >
+      </div>
+  </form>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

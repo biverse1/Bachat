@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+ <head>
+ <meta charset="ISO-8859-1">
+ <meta name="google-signin-client_id" content="536768918025-ll3taul7v00cgj8qv97ntv2rrdkvpb7r.apps.googleusercontent.com"></meta>
+ <title>Google login </title>
+
+ <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+ <style>
+body {
+  margin:0;
+  padding:0;
+  background:#efefef;
+  font-size:16px;
+  color:#777;
+  font-family:sans-serif;
+  font-weight:300;
+}
+#login-box {
+  position:relative;
+  margin: 5% auto;
+  height:400px;
+  width:600px;
+  background:#fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.6);
+}
+.left-box {
+  position:absolute;
+  top:0;
+  left:0;
+  box-sizing: border-box;
+  padding:40px;
+  width:300px;
+  height:400px;
+}
+h1 {
+  margin:0 0 20px 0;
+  font-weight:300;
+  font-size:28px;
+}
+input[type="text"], input[type="password"] {
+  display:block;
+  box-sizing:border-box;
+  margin-bottom:20px;
+  padding:4px;
+  width:220px;
+  height:32px;
+  border:none;
+  outline:none;
+  border-bottom:1px solid #aaa;
+  font-family:sans-serif;
+  font-weight:400;
+  font-size:15px;
+  transition: 0.2s ease;
+}
+input[type="submit"] {
+  margin-bottom:28px;
+  width:120px;
+  height:32px;
+  background:#f44336;
+  border:none;
+  border-radius:2px;
+  color:#fff;
+  font-family:sans-serif;
+  font-weight:500;
+  text-transform:uppercase;
+  transition:0.25s ease;
+  cursor:pointer;
+}
+input[type="submit"]:hover,input[type="submit"]:focus {
+  background:#ff5722;
+  transition: 0.2s ease;
+}
+.right-box {
+  position:absolute;
+  top:0;
+  right:0;
+  box-sizing:border-box;
+  padding:40px;
+  width:300px;
+  height:400px;
+  background-image:url(http://www.psdgraphics.com/file/colorful-triangles-background.jpg);
+  background-size:cover;
+  background-position:center;
+}
+.or {
+  position:absolute;
+  top:180px;
+  left:280px;
+  width:40px;
+  height:40px;
+  background:#efefef;
+  border-radius:50%;
+  box-shadow: 0 2px 4px rgba( 0,0,0,0.6);
+  line-height:40px;
+  text-align:center;
+}
+.right-box .signinwith {
+  display:block;
+  margin-bottom:40px;
+  font-size:28px;
+  color:#fff;
+  text-align:center;
+  text-shadow:0 2px 4px rgba( 0,0,0,0.6);
+}
+button.social {
+  margin-bottom:20px;
+  width:220px;
+  height:36px;
+  border:none;
+  border-radius:2px;
+  color:#fff;
+  font-family:sans-serif;
+  font-weight:500;
+  transition: 0.2s ease;
+  cursor:pointer;
+}
+.facebook {
+  background:#32508e;
+}
+.twitter {
+  background:#55acee;
+}
+.google {
+  background:#dd4b39;
+}
+</style>
+ </head>
+
+ <body>
+<%if(flag){%>
+<form action='/registration' method="post">
+
+ <div id="login-box">
+    <div class="left-box">
+      <h1> Sign Up </h1>
+      <input type="text" name="firstname"  for="firstname" placeholder="First Name"/>
+	  <input type="text" name="lastname"  for="lastname" placeholder="Last Name"/>
+      <input type="text" name="email"  for="email" placeholder="Email" required/>
+      <input type="password" name="psw"  for="psw" placeholder="Password" required/>
+      <input type="password" name="pswrepeat" for="pswrepeat" placeholder="Retype Password"/>
+      <input type="submit" name="singup-button" placeholder="Sing Up"/>
+    </div>
+    <div class="right-box">
+      <span class="signinwith">Sign in with</br>Social Network </span>
+      <button class="social facebook">Log in with Facebook</button>
+      <button class="social twitter">Log in with Twitter</button>
+      <button class="social google">Log in with Google+</button>
+      <div class="g-signin2" data-width="220" data-height="35" onclick="myFunction()"> </div>
+    </div>
+    <div class="or">OR</div>
+
+
+
+ <div id="verify_in_server_result"></div>
+
+
+
+ <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+ <script type="text/javascript">
+    function myFunction() {
+       console.log("Async");
+      setTimeout(function() {
+        window.location='http://localhost:8080/about';
+     //your code to be executed after 1 second
+   }, 8000);
+//
+
+ }
+ /*
+ * Google sign in callback
+ * after loginin to google this function will automatically call
+ * no neet call this function manually
+ */
+ async function onSignIn(googleUser) {
+   console.log("Async");
+ var profile = await( googleUser.getBasicProfile());
+
+ var id_token = googleUser.getAuthResponse().id_token;// this token we will send to server to verify
+
+ console.log('ID: ' + profile.getId());
+ console.log('Name: ' + profile.getName());
+ console.log('Image URL: ' + profile.getImageUrl());
+ console.log('Email: ' + profile.getEmail());
+
+ console.log('Token: ' + id_token);
+
+ $("#token").text(id_token);
+ }
+
+ function signOut() {
+
+ var auth2 = gapi.auth2.getAuthInstance();
+ auth2.signOut().then(function() {
+ console.log('User signed out.');
+ });
+ }
+
+
+
+ </script>
+ </form>
+ <%}else{%>
+   <h3>Either the mail id with which you are trying to register already exists or something is wrong with repeat password</h3>
+   <form action='/registration' method="post">
+
+    <div id="login-box">
+       <div class="left-box">
+         <h1> Sign Up </h1>
+         <input type="text" name="firstname"  for="firstname" placeholder="First Name"/>
+   	  <input type="text" name="lastname"  for="lastname" placeholder="Last Name"/>
+         <input type="text" name="email"  for="email" placeholder="Email" required/>
+         <input type="password" name="psw"  for="psw" placeholder="Password" required/>
+         <input type="password" name="pswrepeat" for="pswrepeat" placeholder="Retype Password"/>
+         <input type="submit" name="singup-button" placeholder="Sing Up"/>
+       </div>
+       <div class="right-box">
+         <span class="signinwith">Sign in with</br>Social Network </span>
+         <button class="social facebook">Log in with Facebook</button>
+         <button class="social twitter">Log in with Twitter</button>
+         <button class="social google">Log in with Google+</button>
+         <div class="g-signin2" data-width="220" data-height="35" onclick="myFunction()"> </div>
+       </div>
+       <div class="or">OR</div>
+
+
+
+    <div id="verify_in_server_result"></div>
+
+
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <script type="text/javascript">
+       function myFunction() {
+          console.log("Async");
+         setTimeout(function() {
+           window.location='http://localhost:8080/about';
+        //your code to be executed after 1 second
+      }, 8000);
+   //
+
+    }
+    /*
+    * Google sign in callback
+    * after loginin to google this function will automatically call
+    * no neet call this function manually
+    */
+    async function onSignIn(googleUser) {
+      console.log("Async");
+    var profile = await( googleUser.getBasicProfile());
+
+    var id_token = googleUser.getAuthResponse().id_token;// this token we will send to server to verify
+
+    console.log('ID: ' + profile.getId());
+    console.log('Name: ' + profile.getName());
+    console.log('Image URL: ' + profile.getImageUrl());
+    console.log('Email: ' + profile.getEmail());
+
+    console.log('Token: ' + id_token);
+
+    $("#token").text(id_token);
+    }
+
+    function signOut() {
+
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function() {
+    console.log('User signed out.');
+    });
+    }
+
+
+
+    </script>
+    </form>
+    <%}%>
+ </body>
+</html>

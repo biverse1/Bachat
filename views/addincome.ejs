@@ -1,0 +1,52 @@
+<html>
+<head>
+  <link rel="stylesheet" href="/assets/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+  <title>Add Income</title>
+  <style>
+
+.btn {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+-ms-transform: translate(-50%, -50%);
+background-color: #f1f1f1;
+color: black;
+font-size: 16px;
+padding: 16px 30px;
+border: none;
+cursor: pointer;
+border-radius: 5px;
+text-align: center;
+}
+.btn:hover {
+background-color: red;
+color: white;
+}
+.button5 {background-color: #555555;}
+</style>
+</head>
+
+<body>
+  <% include partials/header2.ejs %>
+
+<div class="main">
+  <p class="sign" align="center">ADD or UPDATE INCOME</p>
+  <form class="form1" action="/expenses1" method='post' >
+    <input name="income" type="number" class="un "  align="center"  placeholder="income" required>
+
+    <input type="submit" class="works" value="Submit">
+
+
+
+  </form>
+
+  </div>
+</main>
+
+
+</body>
+</html>
